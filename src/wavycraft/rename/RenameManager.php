@@ -10,7 +10,7 @@ use pocketmine\player\Player;
 
 use pocketmine\utils\SingletonTrait;
 
-use wavycraft\core\economy\MoneyManager; // core plugin which will not be released anytime soon...
+use wavycraft\core\economy\MoneyManager;//core plugin which will not be released anytime soon...
 
 final class RenameManager {
     use SingletonTrait;
