@@ -9,8 +9,9 @@ use pocketmine\item\Item;
 use pocketmine\player\Player;
 
 use pocketmine\utils\SingletonTrait;
+use pocketmine\utils\TextFormat as TextColor;
 
-use wavycraft\core\economy\MoneyManager;//core plugin which will not be released anytime soon...
+use wavycraft\core\economy\MoneyManager;
 
 final class RenameManager {
     use SingletonTrait;
@@ -20,7 +21,7 @@ final class RenameManager {
     public const RENAME_SUCCESS = 0;
     public const INSUFFICIENT_FUNDS = 1;
 
-    public function renameItem(Player $player, string $newName) : int{
+    public function renameItem(Player $player, string $newName) : int {
         $heldItem = $player->getInventory()->getItemInHand();
         $moneyManager = MoneyManager::getInstance();
         
@@ -29,7 +30,10 @@ final class RenameManager {
 
             if ($playerBalance >= self::RENAME_COST) {
                 $moneyManager->removeMoney($player, self::RENAME_COST);
-                $heldItem->setCustomName($newName);
+                
+                $coloredName = TextColor::colorize($newName);
+                $heldItem->setCustomName($coloredName);
+
                 $player->getInventory()->setItemInHand($heldItem);
                 return self::RENAME_SUCCESS;
             } else {
@@ -37,6 +41,6 @@ final class RenameManager {
             }
         }
 
-        return self::INSUFFICIENT_FUNDS; //Shouldn't happen, as all items are renamable. - WavyCraftNetwork
+        return self::INSUFFICIENT_FUNDS;
     }
 }
